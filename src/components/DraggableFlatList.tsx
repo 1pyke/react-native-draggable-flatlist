@@ -308,11 +308,12 @@ function DraggableFlatListInner<T>(props: DraggableFlatListProps<T>) {
     .onTouchesDown(() => {
       runOnJS(onContainerTouchStart)();
     })
-    .onTouchesUp(() => {
+  .onTouchesUp(() => {
       // Turning this into a worklet causes timing issues. We want it to run
       // just after the finger lifts.
       runOnJS(onContainerTouchEnd)();
-    });
+    })
+    .runOnJS(true);
 
   if (dragHitSlop) panGesture.hitSlop(dragHitSlop);
   if (activationDistanceProp) {
